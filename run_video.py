@@ -52,17 +52,17 @@ if __name__ == '__main__':
         ret_val, image = cap.read()
 
         humans = e.inference(image)
-            human_pts_list = np.zeros((len(humans),18,2))
-            image_h, image_w = image.shape[:2]
-            for hid,human in enumerate(humans):
-              for i in range(common.CocoPart.Background.value):
-                if i not in human.body_parts.keys():
-                  center = -1,-1
-                body_part = human.body_parts[i]
-                center = (int(body_part.x * image_w + 0.5), int(body_part.y * image_h + 0.5))
-                human_pts_list[hid,i,0] = center[0]
-                human_pts_list[hid,i,1] = center[1]
-            print(human_pts_list)
+        human_pts_list = np.zeros((len(humans),18,2))
+        image_h, image_w = image.shape[:2]
+        for hid,human in enumerate(humans):
+          for i in range(common.CocoPart.Background.value):
+            if i not in human.body_parts.keys():
+              center = -1,-1
+            body_part = human.body_parts[i]
+            center = (int(body_part.x * image_w + 0.5), int(body_part.y * image_h + 0.5))
+            human_pts_list[hid,i,0] = center[0]
+            human_pts_list[hid,i,1] = center[1]
+        print(human_pts_list)
             
         if not args.showBG:
             image = np.zeros(image.shape)
